@@ -1,2 +1,14 @@
-# vue-web-doc
-Online Document Editor made in Vue.js
+# quickstart
+
+> A Vue.js project
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+```
