@@ -239,6 +239,14 @@ export default {
         this.save("sample", "Sfdt");
       }
     };
+
+    fetch('https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?orderBy="$key"&startAt="-MnEqB_ignCbOSGpyjrs"&endAt="-MnEqB_ignCbOSGpyjrs"')
+      .then(response => {
+        response.json().then(responseJson => {
+          const sfdt = JSON.parse(Object.values(responseJson)[0].content);
+          this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
+        })
+    });
   }
 };
 </script>
