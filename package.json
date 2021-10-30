@@ -6,8 +6,11 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@syncfusion/ej2-vue-buttons": "*",
     "@syncfusion/ej2-vue-documenteditor": "^19.3.44",
-    "vue": "^2.5.11"
+    "@syncfusion/ej2-vue-lists": "*",
+    "@syncfusion/ej2-vue-splitbuttons": "*",
+    "vue": "^2.6.12"
   },
   "browserslist": [
     "> 1%",
