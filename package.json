@@ -10,7 +10,8 @@
     "@syncfusion/ej2-vue-documenteditor": "^19.3.44",
     "@syncfusion/ej2-vue-lists": "*",
     "@syncfusion/ej2-vue-splitbuttons": "*",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-class-component": "^7.2.6"
   },
   "browserslist": [
     "> 1%",
