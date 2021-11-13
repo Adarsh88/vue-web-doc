@@ -216,8 +216,8 @@ methods: {
         args.event.preventDefault();
       } else if (isCtrlKey && isAltKey && keyCode === 83) {
         this.save("sample", "Sfdt");
-      }};,
-  ];
+      };
+  ]
 </script>
 
 <style>

@@ -21,7 +21,7 @@ fetch(
     const sfdt = JSON.parse(Object.values(responseJson)[0].content);
     this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
   });
-};
+});
 </script>
 
 <style>
