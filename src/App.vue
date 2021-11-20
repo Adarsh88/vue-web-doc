@@ -15,20 +15,18 @@
 
 <script>
 fetch(
-  'https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?orderBy="$key"&startAt="-MnEqB_ignCbOSGpyjrs"&endAt="-MnEqB_ignCbOSGpyjrs"'
+  'https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?orderBy="$key"&startAt="-MnkWrPxVctDv-M4Dzno"'
 ).then(response => {
   response.json().then(responseJson => {
-    if (Object.entries(responseJson).length > 0) {
-      const sfdt = JSON.parse(Object.values(responseJson)[0].content);
-      this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
-    }
+    const sfdt = JSON.parse(Object.values(responseJson)[0].content);
+    this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
   });
 });
 </script>
 
 <style>
 #documenteditor_titlebar {
-  height: 36px;
+  height: 60px;
   line-height: 26px;
   font-size: 12px;
   padding-left: 15px;

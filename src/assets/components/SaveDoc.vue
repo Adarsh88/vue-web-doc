@@ -72,68 +72,56 @@ Vue.use(DropDownButtonPlugin);
 Vue.use(ButtonPlugin);
 
 export default {
-    goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    },
-    onExport: function(args) {
-      switch (args.item.id) {
-        case "word":
-          this.save("Docx");
-          break;
-        case "sfdt":
-          this.save("Sfdt");
-          break;
-      }
-    },
-    openExportDropDown: function() {
-      document
-        .getElementById("word")
-        .setAttribute(
-          "title",
-          "Download a copy of this document to your computer as a DOCX"
-        );
-      document
-        .getElementById("sfdt")
-        .setAttribute(
-          "title",
-          "Download a copy of this document to your computer as an SFDT file."
-        );
-    },
-    save: function(format) {
-      this.$refs.doceditcontainer.ej2Instances.documentEditor.save(
-        this.$refs.doceditcontainer.ej2Instances.documentEditor.documentName ===
-          ""
-          ? "sample"
-          : this.$refs.doceditcontainer.ej2Instances.documentEditor
-              .documentName,
-        format
+  goBack() {
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+  },
+  onExport: function(args) {
+    switch (args.item.id) {
+      case "word":
+        this.save("Docx");
+        break;
+      case "sfdt":
+        this.save("Sfdt");
+        break;
+    }
+  },
+  openExportDropDown: function() {
+    document
+      .getElementById("word")
+      .setAttribute(
+        "title",
+        "Download a copy of this document to your computer as a DOCX"
       );
-    },
-    openBtnClick: function() {
-      this.$refs.uploadDocument.click();
-    },
-    documentViewChangeEvent: function(event) {
-      debugger;
-      console.log("changes", even);
-    },
+    document
+      .getElementById("sfdt")
+      .setAttribute(
+        "title",
+        "Download a copy of this document to your computer as an SFDT file."
+      );
+  },
+  save: function(format) {
+    this.$refs.doceditcontainer.ej2Instances.documentEditor.save(
+      this.$refs.doceditcontainer.ej2Instances.documentEditor.documentName ===
+        ""
+        ? "sample"
+        : this.$refs.doceditcontainer.ej2Instances.documentEditor.documentName,
+      format
+    );
+  },
+  openBtnClick: function() {
+    this.$refs.uploadDocument.click();
+  },
+  documentViewChangeEvent: function(event) {
+    debugger;
+    console.log("changes", even);
+  },
 
-    titleBarKeydownEvent: function(e) {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        document.getElementById(
-          "documenteditor_title_contentEditor"
-        ).contentEditable = "false";
-        if (
-          document.getElementById("documenteditor_title_contentEditor")
-            .textContent === ""
-        ) {
-          document.getElementById(
-            "documenteditor_title_contentEditor"
-          ).textContent = "Document1";
-        }
-      }
-    },
-    titleBarBlurEvent: function(args) {
+  titleBarKeydownEvent: function(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      document.getElementById(
+        "documenteditor_title_contentEditor"
+      ).contentEditable = "false";
       if (
         document.getElementById("documenteditor_title_contentEditor")
           .textContent === ""
@@ -142,42 +130,53 @@ export default {
           "documenteditor_title_contentEditor"
         ).textContent = "Document1";
       }
+    }
+  },
+  titleBarBlurEvent: function(args) {
+    if (
+      document.getElementById("documenteditor_title_contentEditor")
+        .textContent === ""
+    ) {
       document.getElementById(
         "documenteditor_title_contentEditor"
-      ).contentEditable = "false";
-      this.$refs.doceditcontainer.ej2Instances.documentEditor.documentName = document.getElementById(
-        "documenteditor_title_name"
-      ).textContent;
-    },
-    titleBarClickEvent: function() {
-      this.updateDocumentEditorTitle();
-    },
-    updateDocumentEditorTitle: function() {
-      document.getElementById(
-        "documenteditor_title_contentEditor"
-      ).contentEditable = "true";
-      document.getElementById("documenteditor_title_contentEditor").focus();
-      window
-        .getSelection()
-        .selectAllChildren(
-          document.getElementById("documenteditor_title_contentEditor")
-        );
-    },
-    onSave: function() {
-      let proxy = this;
-      let http = new XMLHttpRequest();
-      http.open(
-        "POST",
-        "https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json"
+      ).textContent = "Document1";
+    }
+    document.getElementById(
+      "documenteditor_title_contentEditor"
+    ).contentEditable = "false";
+    this.$refs.doceditcontainer.ej2Instances.documentEditor.documentName = document.getElementById(
+      "documenteditor_title_name"
+    ).textContent;
+  },
+  titleBarClickEvent: function() {
+    this.updateDocumentEditorTitle();
+  },
+  updateDocumentEditorTitle: function() {
+    document.getElementById(
+      "documenteditor_title_contentEditor"
+    ).contentEditable = "true";
+    document.getElementById("documenteditor_title_contentEditor").focus();
+    window
+      .getSelection()
+      .selectAllChildren(
+        document.getElementById("documenteditor_title_contentEditor")
       );
-      http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      http.responseType = "json";
-      //Serialize document content as SFDT.
-      let sfdt = {
-        content: proxy.$refs.doceditcontainer.ej2Instances.documentEditor.serialize()
-      };
-      //Send the sfdt content to server side.
-      http.send(JSON.stringify(sfdt));
+  },
+  onSave: function() {
+    let proxy = this;
+    let http = new XMLHttpRequest();
+    http.open(
+      "POST",
+      "https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json"
+    );
+    http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    http.responseType = "json";
+    //Serialize document content as SFDT.
+    let sfdt = {
+      content: proxy.$refs.doceditcontainer.ej2Instances.documentEditor.serialize()
+    };
+    //Send the sfdt content to server side.
+    http.send(JSON.stringify(sfdt));
   },
   mounted() {
     this.$nextTick(function() {
@@ -216,10 +215,10 @@ export default {
         args.event.preventDefault();
       } else if (isCtrlKey && isAltKey && keyCode === 83) {
         this.save("sample", "Sfdt");
-      };
-    }
-    }
-}
+      }
+    };
+  }
+};
 </script>
 
 <style>
