@@ -4,8 +4,8 @@
       <!-- use router-link component for navigation. -->
       <!-- specify the link by passing the `to` prop. -->
       <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-      <router-link to="/SaveDoc.vue">Go to SaveDoc</router-link>
-      <router-link to="/SeeDoc.vue">Go to SeeDoc</router-link>
+      <router-link to="/save">Go to SaveDoc</router-link>
+      <router-link to="/view">Go to SeeDoc</router-link>
     </p>
     <!-- route outlet -->
     <!-- component matched by the route will render here -->
@@ -18,8 +18,10 @@ fetch(
   'https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?orderBy="$key"&startAt="-MnEqB_ignCbOSGpyjrs"&endAt="-MnEqB_ignCbOSGpyjrs"'
 ).then(response => {
   response.json().then(responseJson => {
-    const sfdt = JSON.parse(Object.values(responseJson)[0].content);
-    this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
+    if (Object.entries(responseJson).length > 0) {
+      const sfdt = JSON.parse(Object.values(responseJson)[0].content);
+      this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
+    }
   });
 });
 </script>

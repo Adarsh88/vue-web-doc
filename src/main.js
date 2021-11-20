@@ -1,19 +1,26 @@
 import Vue from "vue";
+import VueRouter from 'vue-router';
+
 import App from "./App.vue";
-import router from "./router";
 
 import SaveDoc from "./assets/components/SaveDoc.vue";
 import SeeDoc from "./assets/components/SeeDoc.vue";
 
-let SaveDoc2 = { template: "<div>SaveDoc</div>" };
-let SeeDoc2 = { template: "<div>SeeDoc</div>" };
+
+Vue.use(VueRouter);
 
 const routes = [
-  { path: "/SaveDoc", component: SaveDoc },
-  { path: "/SeeDoc", component: SeeDoc }
+  { path: "/", component: SeeDoc },
+  { path: "/view", component: SeeDoc },
+  { path: "/save", component: SaveDoc },
 ];
 
-new Vue({
-  el: "#app",
-  render: h => h(App)
+const router = new VueRouter({
+  mode: 'history',
+  routes
 });
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app');

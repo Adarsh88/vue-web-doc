@@ -1,11 +1,15 @@
 <template>
   <div>
-    <h1>See our Doc</h1>
+    <h1>{{ greeting }}</h1>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: function() {
+    return { greeting: "Hello, world" }
+  }
+};
 </script>
 
 <style></style>

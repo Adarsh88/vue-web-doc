@@ -52,7 +52,7 @@
 </template>
 
 <script>
-
+import Vue from "vue";
 import {
   DocumentEditorContainerPlugin,
   DocumentEditorContainerComponent,
@@ -70,8 +70,8 @@ Vue.use(ListViewPlugin);
 Vue.use(DocumentEditorContainerPlugin);
 Vue.use(DropDownButtonPlugin);
 Vue.use(ButtonPlugin);
-[
-methods: {
+
+export default {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     },
@@ -217,7 +217,9 @@ methods: {
       } else if (isCtrlKey && isAltKey && keyCode === 83) {
         this.save("sample", "Sfdt");
       };
-  ]
+    }
+    }
+}
 </script>
 
 <style>
