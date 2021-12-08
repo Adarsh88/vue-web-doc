@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@syncfusion/ej2-vue-documenteditor": "^19.3.55",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
@@ -36,6 +37,15 @@
       "parser": "babel-eslint"
     },
     "rules": {}
+=======
+    "@syncfusion/ej2-vue-buttons": "*",
+    "@syncfusion/ej2-vue-documenteditor": "^19.3.44",
+    "@syncfusion/ej2-vue-lists": "*",
+    "@syncfusion/ej2-vue-splitbuttons": "*",
+    "vue": "^2.6.12",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-router": "^3.5.3"
+>>>>>>> 8152b853ac2b7e7e2b31a0721e458ffe0da2a145
   },
   "browserslist": [
     "> 1%",

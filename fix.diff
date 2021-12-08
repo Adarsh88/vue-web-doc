@@ -1,0 +1,149 @@
+diff --git a/index.html b/index.html
+index 1acc945..ac0fc57 100644
+--- a/index.html
++++ b/index.html
+@@ -7,7 +7,6 @@
+   </head>
+   <body>
+     <div id="app"></div>
+-    <div><button id="export" class="save">Save</button></div>
+     <script src="/dist/build.js"></script>
+   </body>
+ </html>
+diff --git a/package.json b/package.json
+index ea5625e..d83fb29 100644
+--- a/package.json
++++ b/package.json
+@@ -11,7 +11,8 @@
+     "@syncfusion/ej2-vue-lists": "*",
+     "@syncfusion/ej2-vue-splitbuttons": "*",
+     "vue": "^2.6.12",
+-    "vue-class-component": "^7.2.6"
++    "vue-class-component": "^8.0.0-rc.1",
++    "vue-router": "^3.5.3"
+   },
+   "browserslist": [
+     "> 1%",
+diff --git a/src/App.vue b/src/App.vue
+index 870f4d8..ad75fad 100644
+--- a/src/App.vue
++++ b/src/App.vue
+@@ -4,8 +4,8 @@
+       <!-- use router-link component for navigation. -->
+       <!-- specify the link by passing the `to` prop. -->
+       <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+-      <router-link to="/SaveDoc.vue">Go to SaveDoc</router-link>
+-      <router-link to="/SeeDoc.vue">Go to SeeDoc</router-link>
++      <router-link to="/save">Go to SaveDoc</router-link>
++      <router-link to="/view">Go to SeeDoc</router-link>
+     </p>
+     <!-- route outlet -->
+     <!-- component matched by the route will render here -->
+@@ -18,8 +18,10 @@ fetch(
+   'https://remote-365-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json?orderBy="$key"&startAt="-MnEqB_ignCbOSGpyjrs"&endAt="-MnEqB_ignCbOSGpyjrs"'
+ ).then(response => {
+   response.json().then(responseJson => {
+-    const sfdt = JSON.parse(Object.values(responseJson)[0].content);
+-    this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
++    if (Object.entries(responseJson).length > 0) {
++      const sfdt = JSON.parse(Object.values(responseJson)[0].content);
++      this.$refs.doceditcontainer.ej2Instances.documentEditor.open(sfdt);
++    }
+   });
+ });
+ </script>
+diff --git a/src/assets/components/SaveDoc.vue b/src/assets/components/SaveDoc.vue
+index 6a94d93..a6ce302 100644
+--- a/src/assets/components/SaveDoc.vue
++++ b/src/assets/components/SaveDoc.vue
+@@ -52,7 +52,7 @@
+ </template>
+ 
+ <script>
+-
++import Vue from "vue";
+ import {
+   DocumentEditorContainerPlugin,
+   DocumentEditorContainerComponent,
+@@ -70,8 +70,8 @@ Vue.use(ListViewPlugin);
+ Vue.use(DocumentEditorContainerPlugin);
+ Vue.use(DropDownButtonPlugin);
+ Vue.use(ButtonPlugin);
+-[
+-methods: {
++
++export default {
+     goBack() {
+       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+     },
+@@ -217,7 +217,9 @@ methods: {
+       } else if (isCtrlKey && isAltKey && keyCode === 83) {
+         this.save("sample", "Sfdt");
+       };
+-  ]
++    }
++    }
++}
+ </script>
+ 
+ <style>
+diff --git a/src/assets/components/SeeDoc.vue b/src/assets/components/SeeDoc.vue
+index acdf83d..fedb9e9 100644
+--- a/src/assets/components/SeeDoc.vue
++++ b/src/assets/components/SeeDoc.vue
+@@ -1,11 +1,15 @@
+ <template>
+   <div>
+-    <h1>See our Doc</h1>
++    <h1>{{ greeting }}</h1>
+   </div>
+ </template>
+ 
+ <script>
+-export default {};
++export default {
++  data: function() {
++    return { greeting: "Hello, world" }
++  }
++};
+ </script>
+ 
+ <style></style>
+diff --git a/src/main.js b/src/main.js
+index 43c8b9c..fdd0820 100644
+--- a/src/main.js
++++ b/src/main.js
+@@ -1,19 +1,26 @@
+ import Vue from "vue";
++import VueRouter from 'vue-router';
++
+ import App from "./App.vue";
+-import router from "./router";
+ 
+ import SaveDoc from "./assets/components/SaveDoc.vue";
+ import SeeDoc from "./assets/components/SeeDoc.vue";
+ 
+-let SaveDoc2 = { template: "<div>SaveDoc</div>" };
+-let SeeDoc2 = { template: "<div>SeeDoc</div>" };
++
++Vue.use(VueRouter);
+ 
+ const routes = [
+-  { path: "/SaveDoc", component: SaveDoc },
+-  { path: "/SeeDoc", component: SeeDoc }
++  { path: "/", component: SeeDoc },
++  { path: "/view", component: SeeDoc },
++  { path: "/save", component: SaveDoc },
+ ];
+ 
++const router = new VueRouter({
++  mode: 'history',
++  routes
++});
++
+ new Vue({
+-  el: "#app",
++  router,
+   render: h => h(App)
+-});
++}).$mount('#app');
